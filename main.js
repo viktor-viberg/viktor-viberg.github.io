@@ -11,9 +11,11 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 
     // Validerar inloggningsuppgifterna
     if (username === validUsername && password === validPassword) {
+        console.log("Inloggning lyckades"); // Debug
         localStorage.setItem('isLoggedIn', true); // Sparar inloggningsstatus i localStorage
         window.location.href = 'index.html'; // Omdirigerar till chatt-sidan
     } else {
+        console.log("Inloggning misslyckades"); // Debug
         document.getElementById('error-message').style.display = 'block'; // Visar felmeddelande
     }
 });
@@ -21,14 +23,18 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 // Kontrollera inloggningsstatus
 function checkLoginStatus() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (!isLoggedIn && window.location.pathname !== '/start.html') {
+    console.log("Inloggad status: ", isLoggedIn); // Debug
+
+    // Kontrollera att vi inte är på inloggningssidan eller start-sidan
+    if (!isLoggedIn && window.location.pathname !== '/start.html' && window.location.pathname !== '/login.html') {
+        console.log("Omdirigerar till start.html"); // Debug
         window.location.href = 'start.html'; // Omdirigerar till start-sidan om användaren inte är inloggad
     }
 }
 
 // Kontrollera status när sidan laddas
 window.onload = function() {
-    checkLoginStatus();
+    checkLoginStatus(); // Kontrollera inloggningen
 
     if (window.location.pathname === '/index.html') {
         simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
