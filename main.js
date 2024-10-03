@@ -12,7 +12,7 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
     // Validerar inloggningsuppgifterna
     if (username === validUsername && password === validPassword) {
         localStorage.setItem('isLoggedIn', true); // Sparar inloggningsstatus i localStorage
-        window.location.href = 'index.html'; // Omdirigerar till huvudchattsidan
+        window.location.href = 'index.html'; // Omdirigerar till chatt-sidan
     } else {
         document.getElementById('error-message').style.display = 'block'; // Visar felmeddelande
     }
@@ -21,15 +21,19 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 // Kontrollera inloggningsstatus
 function checkLoginStatus() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (!isLoggedIn) {
-        window.location.href = 'login.html'; // Omdirigera till login-sidan om användaren inte är inloggad
+    if (!isLoggedIn && window.location.pathname !== '/start.html') {
+        window.location.href = 'start.html'; // Omdirigerar till start-sidan om användaren inte är inloggad
     }
 }
 
-// Anropa denna funktion på alla sidor som ska vara skyddade
-if (window.location.pathname !== '/login.html') {
+// Kontrollera status när sidan laddas
+window.onload = function() {
     checkLoginStatus();
-}
+
+    if (window.location.pathname === '/index.html') {
+        simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
+    }
+};
 
 // Funktion för att skicka meddelanden
 function sendMessage() {
@@ -71,66 +75,11 @@ function addMessage(text, sender) {
     document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
 
-// Funktion för att visa skrivindikation
-function showTypingIndicator() {
-    let typingIndicator = document.createElement('div');
-    typingIndicator.className = 'typing-indicator';
-    typingIndicator.id = 'typing-indicator';
-    typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-    document.getElementById('messages').appendChild(typingIndicator);
-    document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
-}
-
-// Funktion för att dölja skrivindikation
-function hideTypingIndicator() {
-    let typingIndicator = document.getElementById('typing-indicator');
-    if (typingIndicator) {
-        typingIndicator.remove();
-    }
-}
-
 // Simulerar botens svar
 function simulateBotResponse(text) {
     showTypingIndicator();
     setTimeout(function() {
         hideTypingIndicator();
         addMessage(text, 'bot');
-    }, 1500); // Tid för väntanimation
+    }, 1500);
 }
-
-// Event för att skicka meddelanden med "Enter"-tangenten
-document.getElementById('user-input')?.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        if (!event.shiftKey) { // Kontrollera om Shift hålls nere för ny rad
-            event.preventDefault(); // Förhindrar ny rad
-            sendMessage();
-        }
-    }
-});
-
-// Anpassa höjden på textfältet baserat på innehållet
-document.getElementById('user-input')?.addEventListener('input', function() {
-    this.style.height = 'auto'; // Återställ höjden för att mäta korrekt
-    this.style.height = (this.scrollHeight) + 'px'; // Justerar höjden till innehållet
-});
-
-// Event för att skicka meddelanden med "Skicka"-knappen
-document.getElementById('send-button')?.addEventListener('click', function() {
-    sendMessage();
-});
-
-// Event för filuppladdning
-document.getElementById('file-upload')?.addEventListener('change', function(event) {
-    let file = event.target.files[0];
-    if (file) {
-        addMessage(`Fil uppladdad: ${file.name}`, 'user');
-        // Hantera filuppladdning här
-    }
-});
-
-// Lägg till automatiskt välkomstmeddelande när sidan öppnas
-window.onload = function() {
-    if (window.location.pathname === '/index.html') {
-        simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
-    }
-};
