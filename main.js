@@ -1,3 +1,36 @@
+// Dummy login credentials (kan ändras till en backend-anrop om det behövs)
+const validUsername = "vipoUser";
+const validPassword = "securePassword";
+
+// Lyssnar på inloggningsformulärets submit-händelse
+document.getElementById('login-form')?.addEventListener('submit', function(event) {
+    event.preventDefault(); // Förhindrar att sidan laddas om
+
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+
+    // Validerar inloggningsuppgifterna
+    if (username === validUsername && password === validPassword) {
+        localStorage.setItem('isLoggedIn', true); // Sparar inloggningsstatus i localStorage
+        window.location.href = 'index.html'; // Omdirigerar till huvudchattsidan
+    } else {
+        document.getElementById('error-message').style.display = 'block'; // Visar felmeddelande
+    }
+});
+
+// Kontrollera inloggningsstatus
+function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+        window.location.href = 'login.html'; // Omdirigera till login-sidan om användaren inte är inloggad
+    }
+}
+
+// Anropa denna funktion på alla sidor som ska vara skyddade
+if (window.location.pathname !== '/login.html') {
+    checkLoginStatus();
+}
+
 // Funktion för att skicka meddelanden
 function sendMessage() {
     let userInput = document.getElementById('user-input').value;
@@ -23,7 +56,7 @@ function addMessage(text, sender) {
         let profileDiv = document.createElement('div');
         profileDiv.className = 'bot-profile';
         let profileImg = document.createElement('img');
-        profileImg.src = 'logga.png'; // Profilbild för bot
+        profileImg.src = 'logga.png'; // Profilbild för boten
         profileDiv.appendChild(profileImg);
 
         let messageContent = document.createElement('div');
@@ -66,7 +99,7 @@ function simulateBotResponse(text) {
 }
 
 // Event för att skicka meddelanden med "Enter"-tangenten
-document.getElementById('user-input').addEventListener('keydown', function(event) {
+document.getElementById('user-input')?.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         if (!event.shiftKey) { // Kontrollera om Shift hålls nere för ny rad
             event.preventDefault(); // Förhindrar ny rad
@@ -76,18 +109,18 @@ document.getElementById('user-input').addEventListener('keydown', function(event
 });
 
 // Anpassa höjden på textfältet baserat på innehållet
-document.getElementById('user-input').addEventListener('input', function() {
-    this.style.height = 'auto'; // Återställer höjden för att mäta korrekt
+document.getElementById('user-input')?.addEventListener('input', function() {
+    this.style.height = 'auto'; // Återställ höjden för att mäta korrekt
     this.style.height = (this.scrollHeight) + 'px'; // Justerar höjden till innehållet
 });
 
 // Event för att skicka meddelanden med "Skicka"-knappen
-document.getElementById('send-button').addEventListener('click', function() {
+document.getElementById('send-button')?.addEventListener('click', function() {
     sendMessage();
 });
 
 // Event för filuppladdning
-document.getElementById('file-upload').addEventListener('change', function(event) {
+document.getElementById('file-upload')?.addEventListener('change', function(event) {
     let file = event.target.files[0];
     if (file) {
         addMessage(`Fil uppladdad: ${file.name}`, 'user');
@@ -97,5 +130,7 @@ document.getElementById('file-upload').addEventListener('change', function(event
 
 // Lägg till automatiskt välkomstmeddelande när sidan öppnas
 window.onload = function() {
-    simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
+    if (window.location.pathname === '/index.html') {
+        simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
+    }
 };
