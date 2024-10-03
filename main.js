@@ -22,21 +22,16 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 
 // Kontrollera inloggningsstatus
 function checkLoginStatus() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    console.log("Inloggningsstatus: ", isLoggedIn); // Debug: Visar om användaren är inloggad
+    const isLoggedIn = localStorage.getItem('isLoggedIn'); // Kollar om användaren är inloggad
+    console.log("Inloggningsstatus: ", isLoggedIn); // Skriver ut status för inloggning i konsolen
 
-    // Kontrollera om användaren inte är inloggad och inte är på start- eller inloggningssidan
-    if (!isLoggedIn) {
-        if (window.location.pathname !== '/start.html' && window.location.pathname !== '/login.html') {
-            console.log("Omdirigerar till start.html"); // Debug: Omdirigering sker
-            window.location.href = 'start.html'; // Omdirigering till start-sidan
-        } else {
-            console.log("På rätt sida (start.html eller login.html)"); // Debug: På start- eller inloggningssidan
-        }
-    } else {
-        console.log("Användaren är inloggad"); // Debug: Användaren är inloggad
+    // Om användaren inte är inloggad och inte befinner sig på start eller login-sidan
+    const currentPage = window.location.pathname.split("/").pop(); // Kollar vilken sida vi är på
+    if (!isLoggedIn && currentPage !== 'start.html' && currentPage !== 'login.html') {
+        window.location.href = 'start.html'; // Omdirigerar användaren till startsidan
     }
 }
+
 
 // Kontrollera status när sidan laddas
 window.onload = function() {
