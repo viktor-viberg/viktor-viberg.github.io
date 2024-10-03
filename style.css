@@ -1,0 +1,236 @@
+/* Allmänna stilar för hela sidan */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f3f5;
+    overflow-x: hidden; /* Undvik horisontell scroll */
+}
+
+#chat-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Sidofält (sidebar) */
+#sidebar {
+    width: 300px;
+    background-color: #ff8c00;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+#sidebar h2 {
+    margin-top: 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Stil för sektionerna i sidofältet */
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+.sidebar-section h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.sidebar-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ff9d33;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar-item:hover {
+    background-color: #ffb366;
+}
+
+/* Chattens huvudcontainer */
+#chatbot-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Tar upp resten av utrymmet */
+    height: 100vh;
+    background-color: white;
+    overflow: hidden;
+}
+
+#messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* Meddelanden (både användarens och botens) */
+.message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    max-width: 80%;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #f0f0f0;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-left: auto;
+    max-width: 60%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: transparent;
+    color: black;
+    max-width: 60%;
+    display: flex;
+    align-items: center;
+    margin-left: 100px; /* Justerar för botens meddelanden */
+}
+
+.bot-profile {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.bot-profile img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+/* Inmatningsfältet för användaren */
+#chat-input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+}
+
+#user-input-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    background-color: transparent;
+    resize: none; /* Förhindrar storleksjustering */
+    max-height: 100px; /* Maximal höjd för scrollning */
+    min-height: 35px; /* Minsta höjd */
+    overflow-y: auto;
+}
+
+/* Skicka-knappen */
+#send-button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#send-button:hover {
+    background-color: #333;
+}
+
+#send-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Filuppladdningsknapp */
+#file-upload-button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#file-upload-button:hover {
+    background-color: #45a049;
+}
+
+#file-upload-button input[type="file"] {
+    display: none; /* Döljer uppladdningsfältet */
+}
+
+#file-upload-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Skrivanimering för väntande meddelanden */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background-color: #888;
+    border-radius: 50%;
+    margin: 0 2px;
+    display: inline-block;
+    animation: bounce 0.5s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.5);
+    }
+}

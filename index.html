@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViPo AI Chatbot</title>
+    <style>
+        /* Grundläggande stilar för sidan */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f3f5;
+            overflow-x: hidden; /* Förhindrar horisontell scroll */
+        }
+
+        #chat-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #sidebar {
+            width: 300px;
+            background-color: #ff8c00;
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: none;
+        }
+
+        #sidebar h2 {
+            margin-top: 0;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Återställ knapparna i sidofältet */
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #ff9d33;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .sidebar-item:hover {
+            background-color: #ffb366;
+        }
+
+        #chatbot-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1; /* Tar upp kvarvarande utrymme */
+            height: 100vh;
+            background-color: #fff;
+            overflow: hidden;
+            margin: 0;
+            border: none; /* Ta bort ram */
+        }
+
+        #messages {
+            flex: 1;
+            padding: 20px; /* Lägger till padding runt meddelanden */
+            overflow-y: auto;
+            background-color: #fff; /* Säkerställ vit bakgrund */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            box-sizing: border-box;
+            border: none; /* Ingen ram runt meddelanden */
+        }
+
+        .message {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #f0f0f0;
+            color: #000;
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-align: left;
+            margin-left: auto;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            max-width: 60%;
+            margin-right: 100px; /* Flyttar användarens meddelande längre ut till höger */
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: transparent;
+            color: #000;
+            text-align: left;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            max-width: 60%;
+            margin-left: 100px; /* Flyttar botens meddelande längre ut till vänster */
+        }
+
+        .bot-profile {
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bot-profile img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        #chat-input-area {
+            display: flex;
+            align-items: center; /* Centrera filuppladdningsknappen och textfältet vertikalt */
+            padding: 10px;
+            background-color: #fff; /* Matcha vit bakgrund */
+            border-top: 1px solid #ddd; /* Lägg till en linje ovanför inmatningsfältet */
+            box-sizing: border-box;
+        }
+
+        #user-input-container {
+            display: flex;
+            align-items: center; /* Justera textfältet och knappen vertikalt */
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px;
+            flex: 1;
+            background-color: #f9f9f9; /* Lättare bakgrundsfärg för inmatningsfältet */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            box-sizing: border-box;
+            resize: none; /* Förhindra manuell justering av textfältets storlek */
+            overflow-y: auto; /* Gör att man kan scrolla inuti textfältet */
+            max-height: 100px; /* Maximal höjd innan det börjar scrollas */
+            min-height: 35px; /* Minsta höjd på textfältet */
+            font-size: 14px;
+            background-color: transparent;
+        }
+
+        #send-button {
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px; /* Litet mellanrum mellan knapp och inmatningsfält */
+        }
+
+        #send-button:hover {
+            background-color: #333;
+        }
+
+        #send-button svg {
+            width: 20px; /* Mindre storlek på pilen */
+            height: 20px;
+            stroke-width: 2; /* Anpassa tjockleken */
+        }
+
+        /* Förbättrad stil för filuppladdningsknappen */
+        #file-upload-button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px; /* Litet mellanrum mellan knapp och inmatningsfält */
+            transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #file-upload-button:hover {
+            background-color: #45a049;
+        }
+
+        #file-upload-button input[type="file"] {
+            display: none; /* Göm det riktiga filuppladdningsfältet */
+        }
+
+        #file-upload-button svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+        }
+
+        /* CSS för väntanimationen */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-left: 100px; /* Justera för att centrera meddelandet */
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: #888;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: bounce 0.5s infinite; /* Gör animationen snabbare */
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.1s; /* Snabbare fördröjning */
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.2s; /* Snabbare fördröjning */
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(1);
+            }
+            40% {
+                transform: scale(1.5);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="sidebar">
+            <h2>ViPo AI - Viktor Viberg</h2>
+            <div class="sidebar-section">
+                <h3>Kategorier</h3>
+                <div class="sidebar-item">Försäljning</div>
+                <div class="sidebar-item">ViPo Processer</div>
+                <div class="sidebar-item">Branschtrender</div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Snabbåtgärder</h3>
+                <div class="sidebar-item">Ny Lead</div>
+                <div class="sidebar-item">Visa CRM</div>
+                <div class="sidebar-item">Analys</div>
+            </div>
+        </div>
+        <div id="chatbot-container">
+            <div id="messages">
+                <!-- Meddelanden visas här -->
+            </div>
+            <div id="chat-input-area">
+                <button id="file-upload-button">
+                    <input type="file" id="file-upload" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="#ffffff" d="M16 16v-4h-3v4H9v-4H6l6-6 6 6zM4 18v2h16v-2H4z"/>
+                    </svg>
+                </button>
+                <div id="user-input-container">
+                    <textarea id="user-input" placeholder="Skriv ditt meddelande här..."></textarea>
+                    <button id="send-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="#ffffff" d="M4 12l1.41-1.41L11 5.83V20h2V5.83l5.59 5.59L20 12l-8-8-8 8z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Eventlyssnare för att skicka meddelanden med "Enter"-tangenten
+        document.getElementById('user-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                if (!event.shiftKey) { // Kontrollera att Shift inte hålls ner för ny rad
+                    event.preventDefault(); // Förhindra ny rad i textfältet
+                    sendMessage();
+                }
+            }
+        });
+
+        // Anpassa textfältets höjd baserat på innehållet
+        document.getElementById('user-input').addEventListener('input', function() {
+            this.style.height = 'auto'; // Återställ höjden till auto för att mäta korrekt
+            this.style.height = (this.scrollHeight) + 'px'; // Justera höjden till innehållet
+        });
+
+        // Eventlyssnare för att skicka meddelanden med skicka-knappen
+        document.getElementById('send-button').addEventListener('click', function() {
+            sendMessage();
+        });
+
+        // Funktion för att skicka meddelanden
+        function sendMessage() {
+            let userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== "") {
+                addMessage(userInput, 'user');
+                sendMessageToChatbot(userInput);
+                document.getElementById('user-input').value = ''; // Rensa textfältet
+                document.getElementById('user-input').style.height = '35px'; // Återställ höjden till minsta höjd
+            }
+        }
+
+        // Funktion för att lägga till meddelanden till chat-fönstret
+        function addMessage(text, sender) {
+            let messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender === 'user' ? 'user-message' : 'bot-message'}`;
+            
+            // Användarens meddelande (ljusgrå bubbla)
+            if (sender === 'user') {
+                let messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+                messageContent.textContent = text;
+                messageDiv.appendChild(messageContent);
+            }
+            // Botens meddelande (utan bubbla med profilbild)
+            else if (sender === 'bot') {
+                let profileDiv = document.createElement('div');
+                profileDiv.className = 'bot-profile';
+                let profileImg = document.createElement('img');
+                profileImg.src = 'logga.png'; // Här används din uppladdade bild som profilbild
+                profileDiv.appendChild(profileImg);
+
+                let messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+                messageContent.textContent = text;
+
+                messageDiv.appendChild(profileDiv);
+                messageDiv.appendChild(messageContent);
+            }
+
+            document.getElementById('messages').appendChild(messageDiv);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Skrolla till botten
+        }
+
+        // Funktion för att visa väntanimation
+        function showTypingIndicator() {
+            let typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+            document.getElementById('messages').appendChild(typingIndicator);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // Skrolla till botten
+        }
+
+        // Funktion för att dölja väntanimation
+        function hideTypingIndicator() {
+            let typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Funktion för att simulera botens svar med väntanimation
+        function simulateBotResponse(text) {
+            showTypingIndicator();
+            setTimeout(function() {
+                hideTypingIndicator();
+                addMessage(text, 'bot');
+            }, 1500); // Snabbare animation innan botmeddelandet visas
+        }
+
+        // Eventlyssnare för filuppladdning
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            let file = event.target.files[0];
+            if (file) {
+                addMessage(`Fil uppladdad: ${file.name}`, 'user');
+                // Här kan du hantera filuppladdningen eller skicka filen till backend
+            }
+        });
+
+        // Funktion för att skicka meddelanden till backend (mock-funktion just nu)
+        function sendMessageToChatbot(message) {
+            // Simulerar en botrespons med animation
+            simulateBotResponse("Jag är en bot, jag förstår inte än.");
+        }
+
+        // Lägg till ett automatiskt meddelande när sidan öppnas med väntanimation
+        window.onload = function() {
+            simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
+        };
+    </script>
+</body>
+</html>
