@@ -11,11 +11,11 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 
     // Validerar inloggningsuppgifterna
     if (username === validUsername && password === validPassword) {
-        console.log("Inloggning lyckades"); // Debug
+        console.log("Inloggning lyckades"); // Debug: Inloggning lyckades
         localStorage.setItem('isLoggedIn', true); // Sparar inloggningsstatus i localStorage
         window.location.href = 'index.html'; // Omdirigerar till chatt-sidan
     } else {
-        console.log("Inloggning misslyckades"); // Debug
+        console.log("Inloggning misslyckades"); // Debug: Inloggning misslyckades
         document.getElementById('error-message').style.display = 'block'; // Visar felmeddelande
     }
 });
@@ -23,20 +23,28 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 // Kontrollera inloggningsstatus
 function checkLoginStatus() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    console.log("Inloggad status: ", isLoggedIn); // Debug
+    console.log("Inloggningsstatus: ", isLoggedIn); // Debug: Visar om användaren är inloggad
 
-    // Kontrollera att vi inte är på inloggningssidan eller start-sidan
-    if (!isLoggedIn && window.location.pathname !== '/start.html' && window.location.pathname !== '/login.html') {
-        console.log("Omdirigerar till start.html"); // Debug
-        window.location.href = 'start.html'; // Omdirigerar till start-sidan om användaren inte är inloggad
+    // Kontrollera om användaren inte är inloggad och inte är på start- eller inloggningssidan
+    if (!isLoggedIn) {
+        if (window.location.pathname !== '/start.html' && window.location.pathname !== '/login.html') {
+            console.log("Omdirigerar till start.html"); // Debug: Omdirigering sker
+            window.location.href = 'start.html'; // Omdirigering till start-sidan
+        } else {
+            console.log("På rätt sida (start.html eller login.html)"); // Debug: På start- eller inloggningssidan
+        }
+    } else {
+        console.log("Användaren är inloggad"); // Debug: Användaren är inloggad
     }
 }
 
 // Kontrollera status när sidan laddas
 window.onload = function() {
-    checkLoginStatus(); // Kontrollera inloggningen
+    console.log("Sidan laddas, kontrollerar inloggning"); // Debug: Sidan laddas
+    checkLoginStatus(); // Kontrollera inloggning
 
     if (window.location.pathname === '/index.html') {
+        console.log("På chattsidan"); // Debug: På chattsidan
         simulateBotResponse("Hej, hur kan jag hjälpa dig idag?");
     }
 };
