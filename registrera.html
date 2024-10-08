@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrera sig - ViPo AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #ff9933, #ff6600); 
+            width: 250px;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: width 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+            overflow-y: auto;
+        }
+        .sidebar.collapsed {
+            width: 50px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .collapse-btn, .new-chat-btn {
+            padding: 10px;
+            background-color: white;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+        .collapse-btn span {
+            margin-left: 10px;
+        }
+        .sidebar.collapsed .collapse-btn span {
+            display: none;
+        }
+        .sidebar.collapsed .nav-button {
+            display: none;
+        }
+        .collapse-btn:hover, .new-chat-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .nav-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #ff8500;
+        }
+        .content-container {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .content-container h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .content-container p {
+            font-size: 1.2em;
+            line-height: 1.6em;
+            color: #333;
+        }
+        .content-container .highlight {
+            color: #ff6600;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="btn-container">
+            <button class="collapse-btn" onclick="toggleSidebar()">≡ <span>Kollapsa</span></button>
+        </div>
+        <!-- Navigeringsknappar -->
+        <button class="nav-button" onclick="location.href='index.html'"><span>Start sida</span></button>
+        <button class="nav-button" onclick="location.href='om.html'"><span>Om ViPo AI 3.0</span></button>
+        <button class="nav-button" onclick="location.href='fragor.html'"><span>Vanliga frågor</span></button>
+    </div>
+
+    <div class="content-container">
+        <div>
+            <h1>Registrera dig på ViPo AI</h1>
+            <p>
+                För att registrera dig och få tillgång till ViPo AI, vänligen kontakta <span class="highlight">Viktor Viberg</span>.
+            </p>
+            <p>
+                Inga självregistreringar är tillåtna, så vänligen skicka ett meddelande till Viktor för att slutföra din registrering.
+            </p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+</html>

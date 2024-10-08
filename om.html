@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om ViPo AI - ViPo AI 3.0</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #ff9933, #ff6600); 
+            width: 250px;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: width 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+            overflow-y: auto;
+        }
+        .sidebar.collapsed {
+            width: 50px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .collapse-btn, .new-chat-btn {
+            padding: 10px;
+            background-color: white;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+        .collapse-btn span {
+            margin-left: 10px;
+        }
+        .sidebar.collapsed .collapse-btn span {
+            display: none;
+        }
+        .sidebar.collapsed .nav-button {
+            display: none;
+        }
+        .collapse-btn:hover, .new-chat-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .nav-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #ff8500;
+        }
+        .content-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .content-container h1 {
+            color: #333;
+            font-size: 2em;
+        }
+        .content-container h2 {
+            color: #ff6600;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        .content-container p {
+            font-size: 1.2em;
+            line-height: 1.6em;
+            color: #333;
+        }
+        .content-container .highlight {
+            color: #ff6600;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="btn-container">
+            <button class="collapse-btn" onclick="toggleSidebar()">≡ <span>Kollapsa</span></button>
+        </div>
+        <!-- Navigeringsknappar -->
+        <button class="nav-button" onclick="location.href='index.html'"><span>Start sida</span></button>
+        <button class="nav-button" onclick="location.href='frågor.html'"><span>Vanliga frågor</span></button> <!-- Uppdaterad knapp -->
+    </div>
+
+    <div class="content-container">
+        <h1>Om ViPo AI 3.0</h1>
+        
+        <!-- Rubrik 1: Vad är ViPo AI? -->
+        <h2>Vad är ViPo AI?</h2>
+        <p>
+            <span class="highlight">ViPo AI</span> är en avancerad artificiell intelligens designad specifikt för att stödja och underlätta arbetsuppgifter inom ViPo. Den är tränad för att hjälpa teamet med allt från försäljning till podcastproduktion, och är byggd för att effektivisera arbetet inom företaget.
+        </p>
+
+        <!-- Rubrik 2: Hur funkar ViPo AI? -->
+        <h2>Hur funkar ViPo AI?</h2>
+        <p>
+            ViPo AI använder sig av maskininlärning och datadriven teknik för att analysera data och ge smarta förslag till användarna. Genom att automatisera processer som tidigare krävde manuell hantering, kan ViPo AI utföra uppgifter snabbare och med större precision. Den integreras med ViPo:s befintliga system och anpassar sig till företagets behov genom kontinuerligt lärande och optimering.
+        </p>
+
+        <!-- Rubrik 3: Vad är fördelarna med ViPo AI? -->
+        <h2>Vad är fördelarna med ViPo AI?</h2>
+        <p>
+            ViPo AI erbjuder flera fördelar för företaget, inklusive:
+            <ul>
+                <li><strong>Tidsbesparing:</strong> Genom att automatisera repetitiva uppgifter kan teamet fokusera på mer strategiska och kreativa uppgifter.</li>
+                <li><strong>Datadriven insikt:</strong> ViPo AI analyserar stora mängder data snabbt och ger förslag som är grundade på fakta, vilket leder till bättre beslutsfattande.</li>
+                <li><strong>Anpassningsbar:</strong> AI:n lär sig av företagets arbete och blir ständigt bättre på att förstå och uppfylla ViPo:s behov.</li>
+                <li><strong>Effektivisering:</strong> Genom att förbättra arbetsflöden kan ViPo AI hjälpa till att öka produktiviteten inom alla delar av företaget.</li>
+            </ul>
+        </p>
+
+        <!-- Existerande text från tidigare -->
+        <h2>Hur används ViPo AI?</h2>
+        <p>
+            AI:n använder avancerade algoritmer för att analysera data och ge smarta förslag, vilket hjälper säljteamet att hantera kunder mer effektivt och förbättra kundupplevelsen. Förutom försäljning hjälper ViPo AI till med att automatisera tråkiga eller repetitiva uppgifter, vilket frigör tid för kreativitet och innovation.
+        </p>
+        <p>
+            När det kommer till <span class="highlight">podcastproduktion</span>, kan ViPo AI hjälpa till med redigering, innehållsförslag och struktur, vilket gör hela processen mer strömlinjeformad och organiserad.
+        </p>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        }
+    </script>
+
+</body>
+</html>

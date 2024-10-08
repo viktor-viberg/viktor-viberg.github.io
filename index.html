@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ViPo AI - Start sida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            overflow-y: scroll; /* Gör sidan skrollbar */
+        }
+        header {
+            background-color: #ff6600;
+            color: white;
+            padding: 15px;
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        header .contact {
+            font-size: 14px;
+            text-align: right;
+            margin-right: 20px;
+            flex-grow: 1;
+        }
+        header img.logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 20px;
+        }
+        .dropdown button {
+            background-color: white;
+            color: #ff6600;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        .dropdown-content a {
+            color: #ff6600;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown:hover button {
+            background-color: #f1f1f1;
+        }
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px;
+            padding-left: 80px; /* Justering för att börja i linje med dropdown-menyn */
+        }
+        .content {
+            max-width: 35%;
+        }
+        .content h1 {
+            font-size: 36px;
+            color: #333;
+        }
+        .content p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px; /* Ökat utrymmet mellan texten och knapparna */
+        }
+        .buttons {
+            margin-top: 5px; /* Minskad toppmarginal för att justera avståndet */
+        }
+        .buttons a {
+            text-decoration: none;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6600, #ff9900);
+            color: white;
+            border-radius: 30px;
+            margin-right: 10px;
+            font-size: 18px;
+            transition: background 0.3s ease;
+        }
+        .buttons a:hover {
+            background: linear-gradient(45deg, #e65c00, #ff8500);
+        }
+        .image {
+            max-width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: center;
+        }
+        .image img.robot {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .faq-section {
+            background-color: #fff;
+            padding: 20px;
+            padding-left: 80px; /* Justering för att börja i linje med resten av texten */
+            margin-top: 20px;
+        }
+        .faq-section h2 {
+            font-size: 24px;
+            color: #ff6600;
+        }
+        .faq-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .faq-section ul li {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .faq-section ul li a {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .faq-section ul li a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #ff6600;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logga.png" alt="ViPo Logga" class="logo">
+        <div class="dropdown">
+            <button>Om ViPo AI</button> <!-- Ändrad rubrik till "Om ViPo AI" -->
+            <div class="dropdown-content">
+                <a href="om.html">Vad är ViPo AI?</a>
+                <a href="om.html">Hur fungerar ViPo AI?</a>
+                <a href="om.html">Fördelar med ViPo AI</a>
+            </div>
+        </div>
+        <p class="contact">Telefon: bra försök | E-post: viktor.viberg@vipo.se</p>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <h1>Vill du vara steget före alla säljare?</h1>
+            <p>Har du märkt hur AI kan hjälpa dig att ligga före konkurrenterna i försäljningen? Med AI kan du förbättra kundupplevelsen, förutspå trender och fatta smartare beslut snabbare. Vill du också ta din försäljning till nästa nivå? Logga in och kör igång!</p>
+            <div class="buttons">
+                <a href="login.html">Logga in</a> <!-- Länkar till login.html -->
+                <a href="registrera.html">Registrera dig</a> <!-- Uppdaterad länk till registrera.html -->
+            </div>
+        </div>
+        <div class="image">
+            <img src="robot.png" alt="ViPo Robot" class="robot">
+        </div>
+    </div>
+
+    <div class="faq-section">
+        <h2>Vanliga frågor</h2>
+        <ul>
+            <li><a href="frågor.html">Vad hjälper AI mig med?</a></li>
+            <li><a href="frågor.html">Vad kan jag använda AI till?</a></li>
+            <li><a href="frågor.html">Hur ska jag formulera mina prompts?</a></li>
+            <li><a href="frågor.html">Hur kan ViPo AI bli bättre?</a></li>
+            <li><a href="frågor.html">Hur rapporterar jag problem?</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2024 ViPo AI av Viktor Viberg</p>
+    </footer>
+
+</body>
+</html>

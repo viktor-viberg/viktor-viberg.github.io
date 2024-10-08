@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanliga Frågor - ViPo AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #ff9933, #ff6600); 
+            width: 250px;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: width 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+            overflow-y: auto;
+        }
+        .sidebar.collapsed {
+            width: 50px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .collapse-btn, .new-chat-btn {
+            padding: 10px;
+            background-color: white;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+        .collapse-btn span {
+            margin-left: 10px;
+        }
+        .sidebar.collapsed .collapse-btn span {
+            display: none;
+        }
+        .sidebar.collapsed .nav-button {
+            display: none;
+        }
+        .collapse-btn:hover, .new-chat-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .nav-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #ff8500;
+        }
+        .content-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .content-container h1 {
+            color: #333;
+        }
+        .faq-section {
+            margin-bottom: 20px;
+        }
+        .faq-section h2 {
+            color: #ff6600;
+            font-size: 1.5em;
+        }
+        .faq-section p {
+            font-size: 1em;
+            color: #333;
+            line-height: 1.6em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="btn-container">
+            <button class="collapse-btn" onclick="toggleSidebar()">≡ <span>Kollapsa</span></button>
+        </div>
+        <!-- Navigeringsknappar -->
+        <button class="nav-button" onclick="location.href='index.html'"><span>Startsida</span></button>
+        <button class="nav-button" onclick="location.href='om.html'"><span>Om ViPo AI 3.0</span></button>
+    </div>
+
+    <div class="content-container">
+        <h1>Vanliga Frågor</h1>
+
+        <div class="faq-section">
+            <h2>Vad hjälper AI mig med?</h2>
+            <p>
+                AI:n kan hjälpa dig med att automatisera enkla och repetitiva uppgifter, svara på frågor, ge råd, analysera data och mycket mer. Den kan också hjälpa till att ge dig insikter baserat på tillgänglig information, och kan användas för att fatta snabbare och mer välinformerade beslut.
+            </p>
+        </div>
+
+        <div class="faq-section">
+            <h2>Vad kan jag använda AI till?</h2>
+            <p>
+                Du kan använda AI för en mängd olika uppgifter, inklusive:
+                <ul>
+                    <li>Automatisera uppgifter som att hantera mejl eller organisera dokument.</li>
+                    <li>Få snabba svar på frågor och problem.</li>
+                    <li>Skapa rapporter och sammanfattningar baserat på stora mängder data.</li>
+                    <li>Hjälpa till med beslutsfattande genom att analysera information snabbt och effektivt.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="faq-section">
+            <h2>Hur ska jag formulera mina prompts?</h2>
+            <p>
+                För att få bästa möjliga svar från AI:n, försök att:
+                <ul>
+                    <li>Vara tydlig och specifik med dina frågor.</li>
+                    <li>Använda korta och direkta instruktioner.</li>
+                    <li>Undvika tvetydiga ord eller formuleringar som kan förvirra AI:n.</li>
+                </ul>
+                Exempel på en bra prompt: "Analysera försäljningsdata för Q1 och identifiera de tre största trenderna."
+            </p>
+        </div>
+
+        <div class="faq-section">
+            <h2>Hur kan ViPo AI bli bättre?</h2>
+            <p>
+                ViPo AI är ständigt under utveckling för att förbättras. Genom att ge feedback på hur AI:n presterar och dela med dig av vilka specifika områden du vill se förbättringar i, kan vi fortsätta att utveckla och anpassa den. Vi uppskattar din feedback för att göra AI:n ännu smartare och mer användbar.
+            </p>
+        </div>
+
+        <div class="faq-section">
+            <h2>Hur rapporterar jag problem?</h2>
+            <p>
+                Om du stöter på några problem eller buggar när du använder AI:n, kan du rapportera dessa genom att kontakta vår supportavdelning. Du kan även använda vårt inbyggda feedbacksystem för att snabbt skicka in en felrapport direkt från plattformen. Vi ser till att alla problem hanteras så snabbt som möjligt.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        }
+    </script>
+
+</body>
+</html>
